@@ -15,3 +15,13 @@ work.
 
 You will notice a lot of TODOs and commented-out unimplemented
 methods. Feel free to write them :)
+
+## Make
+
+Use `BOOST_ROOT` to specify the location of your Boost installation, as below:
+
+```sh
+make BOOST_ROOT=/path/to/boost
+```
+
+Compile success with g++ 11.4.0 and Boost 1.84.0.
