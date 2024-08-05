@@ -1,6 +1,6 @@
 include ../flags.mk
 
-all: compress_webgraph print_webgraph print_webgraph_offline print_webgraph_sequential
+all: compress_webgraph print_webgraph print_webgraph_offline print_webgraph_sequential convert_to_binary_edgelist
 
 compress_webgraph: compress_webgraph.o
 	g++ -static -L$(LIBS) -L.. -o compress_webgraph compress_webgraph.o \
@@ -16,6 +16,10 @@ print_webgraph_offline: print_webgraph_offline.o
 
 print_webgraph_sequential: print_webgraph_sequential.o
 	g++ -static -L$(LIBS) -L.. -o print_webgraph_sequential print_webgraph_sequential.o \
+			 -lwebgraph -lboost_regex -lboost_program_options -lboost_filesystem
+
+convert_to_binary_edgelist: convert_to_binary_edgelist.o
+	g++ -static -L$(LIBS) -L.. -o convert_to_binary_edgelist convert_to_binary_edgelist.o \
 			 -lwebgraph -lboost_regex -lboost_program_options -lboost_filesystem
 
 install:
