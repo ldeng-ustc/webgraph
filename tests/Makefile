@@ -27,3 +27,7 @@ install:
 clean:
 	rm -f *.o
 	rm -f *~
+	rm -f compress_webgraph
+	rm -f print_webgraph
+	rm -f print_webgraph_offline
+	rm -f print_webgraph_sequential
