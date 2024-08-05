@@ -35,11 +35,15 @@ int main( int argc, char** argv ) {
       return 1;
    }
    
+//#ifndef CONFIG_FAST
+//   logs::register_logger( "print_webgraph", logs::LEVEL_MAX );
+//#endif
+
    string name = argv[1];
 
    typedef boost::shared_ptr<graph> graph_ptr;
 
-   graph_ptr gp = graph::load_offline( name );
+   graph_ptr gp = graph::load_sequential( name );
    
 //   cerr << "about to try to get node iterator.\n";
    
@@ -47,35 +51,41 @@ int main( int argc, char** argv ) {
    
    tie(n, n_end) = gp->get_node_iterator( 0 );
    
-//   cerr << "here are vertices:\n";
-   
+   cerr << "num vertices:\n";
    cerr << gp->get_num_nodes() << endl;
 
+   cerr << "here are vertices:\n";
    
    while( n != n_end ) {
-      cerr << *n << endl;
-//       webgraph::bv_graph::graph::successor_iterator succ, succ_end;
-
-//       tie( succ, succ_end ) = successors( n );
-      vector<int> succ = successor_vector( n );
+       webgraph::bv_graph::graph::successor_iterator succ, succ_end;
+       
+       tie( succ, succ_end ) = successors( n );
+//       vector<int> succ = successor_vector( n );
       
-//      cerr << "outdegree : " << outdegree(n) << endl;
+       cerr << "outdegree : " << outdegree(n) << endl;
 
-//      cerr << "********************   " << *n << "\n";
+       cerr << "********************   " << *n << "\n";
+
+      while( succ != succ_end ) {
+         cerr << *succ << " ";
+         ++succ;
+      }
+      
+      cerr << endl;
 
 //       copy( succ.begin(), succ.end(), ostream_iterator<int>(cerr, " " ) );
-      if( succ.size() > 0 ) 
-         cerr << succ[0];
+//       if( succ.size() > 0 ) 
+//          cerr << succ[0];
 
-      for( unsigned i = 1; i < succ.size(); ++i )
-         cerr << " " << succ[i];
+//       for( int i = 1; i < succ.size(); ++i )
+//          cerr << " " << succ[i];
       
 //       ostringstream strstr;
 //       copy( succ.begin(), succ.end(), ostream_iterator<int>(strstr, " " ) );
 
 //      logs::logger( "print_webgraph" ) << strstr.str() << "\n";
 
-      cerr << endl;
+     cerr << endl;
 
       ++n;  
    }
