@@ -44,10 +44,10 @@
 #include <algorithm>
 #include <iterator>
 
-#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/regex.hpp>
-#include <boost/program_options.hpp>
-#include <boost/progress.hpp>
+// #include <boost/program_options.hpp>
+// #include <boost/progress.hpp>
 
 #include "../utils/fast.hpp"
 #include "../bitstreams/tests/debug_obitstream.hpp"
@@ -2122,11 +2122,11 @@ void graph::store_offline_graph_internal( webgraph::ascii_graph::offline_graph o
    //       pm.start();
    //    }
 
-   boost::shared_ptr<boost::progress_display> pp;
+   boost::shared_ptr<boost::timer::progress_display> pp;
 
    if( log != NULL ) {
       *log << "Compressing graph...\n";
-      pp.reset( new boost::progress_display( olg.get_num_nodes(), *log ) );
+      pp.reset( new boost::timer::progress_display( olg.get_num_nodes(), *log ) );
    }
 
    // We iterate over the nodes of graph
