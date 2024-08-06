@@ -65,25 +65,29 @@ int main(int argc, char **argv)
     {
         webgraph::bv_graph::graph::successor_iterator succ, succ_end;
 
+        // cerr << "outdegree : " << outdegree(n) << endl;
         tie(succ, succ_end) = successors(n);
 
         while (succ != succ_end)
         {
+            // cerr << edge_count << "th" << endl;
             uint64_t src = *n;
             uint64_t dest = *succ;
             fout.write((char *)&src, sizeof(uint64_t));
             fout.write((char *)&dest, sizeof(uint64_t));
             
-            cerr << src << " " << dest << endl;
+            // cerr << src << " " << dest << endl;
             
             ++succ;
             ++edge_count;
         }
+
+        // cerr << "before ++n" << endl;
         
         ++n;
         ++node_count;
 
-        // if(node_count % 100000 == 0)
+        if(node_count % 100000 == 0)
         {
             cerr << "progress: " << node_count << "/" << total_node << endl;
             cerr << "edge count: " << edge_count << endl;

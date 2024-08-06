@@ -142,8 +142,10 @@ int ibitstream::read() {
    if ( avail == 0 ) {
       // then the buffer is empty. attempt to fill it again.
       if( is != NULL )
+      {
          assert( buffer->size() == buffer->capacity() );
          avail = is->readsome( (char*)&(*buffer).at(0), buffer->size() ); // used to be capacity
+      }
 #ifdef LOGGING         
       cerr << "==================================================\n";
       cerr << "BUFFER REFILLED; first 50 bytes : \n";

@@ -54,6 +54,7 @@ private:
    int n;
 
    void init() {
+      // cerr << "merged_iterator::init() called" << endl;
       if ( valid0 = it0->has_next() ) 
          curr0 = it0->next();
       if ( valid1 = it1->has_next() ) 
@@ -83,6 +84,8 @@ public:
     */
    merged_iterator( underlying_ptr i0, underlying_ptr i1, int sz ) :
       it0( i0 ), it1( i1 ), n(sz) {
+      // cerr << "it0 = " << it0.get() << " it1 = " << it1.get() << endl;
+      // cerr << "it0 has_next = " << it0->has_next() << " it1 has_next = " << it1->has_next() << endl;
       init();
    }
 
