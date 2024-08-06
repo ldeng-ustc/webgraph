@@ -187,7 +187,7 @@ int ibitstream::read_from_current( unsigned int len ) {
       // We just empty everything.
       read_bits += len;
       fill = 0;
-      int retval = current & ( 1 << len ) - 1;
+      int retval = current & (( 1 << len ) - 1);
 #ifdef LOGGING
       cerr << "\tread_from_current(" << len << ") = " << retval << " "
            << "(current=" << utils::int_to_binary(current,fill) << ")\n";
@@ -224,11 +224,11 @@ void ibitstream::read( byte bits[], unsigned int len ) {
       
    if ( len <= fill ) {
       if ( len <= 8 ) {
-         bits[ 0 ] = (byte)( read_from_current( len ) << 8 - len );
+         bits[ 0 ] = (byte)( read_from_current( len ) << (8 - len) );
          return;
       } else {
          bits[ 0 ] = (byte)( read_from_current( 8 ) );
-         bits[ 1 ] = (byte)( read_from_current( len - 8 ) << 16 - len );
+         bits[ 1 ] = (byte)( read_from_current( len - 8 ) << (16 - len) );
          return;
       }
    } else {
@@ -241,7 +241,7 @@ void ibitstream::read( byte bits[], unsigned int len ) {
          
       const unsigned int shift = fill;
 
-      bits[ j ] = (byte)( read_from_current( shift ) << 8 - shift );
+      bits[ j ] = (byte)( read_from_current( shift ) << (8 - shift) );
       len -= shift;
 
       i = len >> 3;
@@ -249,7 +249,7 @@ void ibitstream::read( byte bits[], unsigned int len ) {
          b = read();
          // used to be >>>
          bits[ j ] |= (( b & 0xFF ) >> shift) & 0xFF; // the last & 0xFF is mine.
-         bits[ ++j ] = (byte)( b << 8 - shift );
+         bits[ ++j ] = (byte)( b << (8 - shift) );
       }
          
       read_bits += len & ~7;
@@ -257,10 +257,10 @@ void ibitstream::read( byte bits[], unsigned int len ) {
       len &= 7;
       if ( len != 0 ) {
          if ( len <= 8 - shift ) {
-            bits[ j ] |= (byte)( read_from_current( len ) << 8 - shift - len );
+            bits[ j ] |= (byte)( read_from_current( len ) << (8 - shift - len) );
          } else {
             bits[ j ] |= (byte)( read_from_current( 8 - shift ) );
-            bits[ j + 1 ] = (byte)( read_from_current( len + shift - 8 ) << 16 - shift - len );
+            bits[ j + 1 ] = (byte)( read_from_current( len + shift - 8 ) << (16 - shift - len) );
          }
       }
    }
@@ -385,7 +385,7 @@ void ibitstream::set_position( unsigned long position ) {
       
    int pos = (int)this->pos;
 
-   if ( delta <= avail && delta >= - pos ) {
+   if ( delta <= (int)avail && delta >= - pos ) {
       // We can reposition just by moving into the buffer.
       avail -= delta;
       pos += delta;

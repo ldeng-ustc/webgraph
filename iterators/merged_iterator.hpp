@@ -54,9 +54,9 @@ private:
    int n;
 
    void init() {
-      if ( valid0 = it0->has_next() ) 
+      if ( (valid0 = it0->has_next()) ) 
          curr0 = it0->next();
-      if ( valid1 = it1->has_next() ) 
+      if ( (valid1 = it1->has_next()) ) 
          curr1 = it1->next();
    }
 
