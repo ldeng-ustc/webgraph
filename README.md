@@ -45,3 +45,12 @@ You can use `tests/print_webgraph` to print a webgraph file.
 Make sure `graphname.graph`, `graphname.properties` and `graphname.offsets` are in your `path/to/webgraph`. (i.e., the graph path is graph files path without extension.)
 
 To read a graph without offset file (sequential graph), use `test/print_webgraph_sequential`.
+
+To convert graph to binary edge list, run:
+
+```sh
+./tests/convert_to_binary_edgelist [input_graph] [output_file]
+```
+
+Each edge will represent as 2 64bit integers.
+
