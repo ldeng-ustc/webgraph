@@ -8,4 +8,4 @@
 /tests/print_webgraph_offline
 /tests/print_webgraph_sequential
 /tests/convert_to_text
-/tests/convert_to_binary_edgelist
+# /tests/convert_to_binary_edgelist
