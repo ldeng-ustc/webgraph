@@ -3,6 +3,9 @@
 ifdef BOOST_ROOT
 	INCLUDES = $(BOOST_ROOT)/include
 	LIBS = $(BOOST_ROOT)/lib
+else
+	INCLUDES = .
+	LIBS = .
 endif
 
 base = -I$(INCLUDES) -L$(LIBS) -Wall

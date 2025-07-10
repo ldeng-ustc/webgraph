@@ -15,10 +15,13 @@ files = asciigraph/offline_graph.o \
 #
 # default target
 #
-all: libs
+all: libs tests
 
 tests: libs
-	$(MAKE) -C tests
+	pushd tests && \
+	$(MAKE) -C . && \
+	popd
+
 
 
 libs:
@@ -34,6 +37,8 @@ clean:
 	rm -f core*
 	rm -f *~
 	rm -f *.o
+	rm -f *.a
+	rm -f *.so
 	@$(MAKE) -C asciigraph clean
 	@$(MAKE) -C bitstreams clean
 	@$(MAKE) -C properties clean
