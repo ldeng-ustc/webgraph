@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 include flags.mk
 
 files = asciigraph/offline_graph.o \
@@ -15,7 +17,14 @@ files = asciigraph/offline_graph.o \
 #
 # default target
 #
-all: libs tests
+all: info libs tests
+
+info:
+	@echo "Compile WebGraph ..."
+	@echo "Shell: $(SHELL)"
+	@echo "INCLUDES: $(INCLUDES)"
+	@echo "LIBS: $(LIBS)"
+	@echo "FLAGS: $(FLAGS)"
 
 tests: libs
 	pushd tests && \
@@ -46,4 +55,6 @@ clean:
 	@$(MAKE) -C webgraph clean
 	@$(MAKE) -C log clean
 	@$(MAKE) -C tests clean
+
+.PHONY: all tests libs info clean
 
